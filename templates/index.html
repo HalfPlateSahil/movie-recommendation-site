@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Find Your Perfect Movie!</h1>
+        </div>
+        
+        <form method="POST" action="/recommend" class="recommendation-form">
+            <h2>Get Movie Recommendations</h2>
+            
+            <label for="mood">Mood:</label>
+            <select name="mood" required>
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="excited">Excited</option>
+                <option value="romantic">Romantic</option>
+                <option value="adventurous">Adventurous</option>
+            </select>
+
+            <label for="genre">Genre:</label>
+            <select name="genre" required>
+                <option value="Comedy">Comedy</option>
+                <option value="Action">Action</option>
+                <option value="Drama">Drama</option>
+                <option value="Romance">Romance</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Family">Family</option>
+            </select>
+
+            <label for="companions">Who are you watching with?</label>
+            <select name="companions" required>
+                <option value="alone">Alone</option>
+                <option value="friends">Friends</option>
+                <option value="family">Family</option>
+            </select>
+
+            <button type="submit">Get Recommendations</button>
+        </form>
+
+        {% if recommendations %}
+        <div class="recommendations">
+            <h3>Based on your preferences:</h3>
+            <ul>
+                <li><strong>Mood:</strong> {{ mood }}</li>
+                <li><strong>Genre:</strong> {{ genre }}</li>
+                <li><strong>Companions:</strong> {{ companions }}</li>
+            </ul>
+
+            <h3>Recommended Movies:</h3>
+            <ul>
+                {% for movie in recommendations %}
+                <li>{{ movie }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
